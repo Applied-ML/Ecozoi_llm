@@ -102,11 +102,6 @@ All results are written to `output_results/`:
 - Human head size: 5,313 tracks.
 
 
-## Roadmap / To add (you can include later)
-- Insert representative plots from `output_results/plots/`.
-- Add detailed per-track or per-category tables.
-- Include ablation details on compute/memory and training curves per variant.
-
 ## Citation
 
 
@@ -123,5 +118,6 @@ All results are written to `output_results/`:
   publisher={Nature Publishing Group}
 }
 ```
+
 
 
