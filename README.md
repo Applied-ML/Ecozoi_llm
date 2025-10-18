@@ -16,7 +16,7 @@
 - [Installation](#-installation)
 - [Usage](#-usage)
 - [Results](#-visualization)
-<!- [Outputs](#-outputs-and-artifacts)>
+- [Outputs](#-outputs-and-artifacts)
 - [Reproducibility](#-notes-and-reproducibility)
 - [Citation](#-citation)
 
