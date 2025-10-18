@@ -97,7 +97,7 @@ Aggregation across seeds:
 - Produce plots including mean PearsonR bars and category summaries.
 
 
-## 📁 Outputs and Artifacts
+<!## 📁 Outputs and Artifacts
 All results are written to `output_results/`:
 - CSVs:
   - `experiment_results_human_seed_<seed>.csv`
@@ -107,7 +107,7 @@ All results are written to `output_results/`:
 - Plots in `output_results/plots/`:
   - `pearson_overall_human.png` (mean over seeds)
   - `pearson_by_category_human.png`
-  - `scatter_vanilla_vs_all_*.png`
+  - `scatter_vanilla_vs_all_*.png`>
 
 
 
@@ -246,6 +246,7 @@ If you use this work, please cite the original Enformer paper:
   publisher={Nature Publishing Group}
 }
 ```
+
 
 
 
