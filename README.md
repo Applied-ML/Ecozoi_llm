@@ -1,19 +1,42 @@
-## Ecozoi Experiments: Enformer Variants (Komlós, RoPE, Rank-1)
+# 🧬 Ecozoi Experiments: Enformer Variants
 
-### Overview
-This repository runs a suite of experiments on DeepMind's Enformer architecture with three orthogonal modifications:
-- Komlós sequence encoding (3-channel balanced encoding of DNA)
-- RoPE: Rotary Positional Embeddings in self-attention
-- Rank-1 value projection in attention (parameter/min-rank constraint)
+[![Python](https://img.shields.io/badge/Python-3.7+-blue.svg)](https://python.org)
+[![TensorFlow](https://img.shields.io/badge/TensorFlow-2.5.0-orange.svg)](https://tensorflow.org)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-evaluated performance with Pearson correlation (PearsonR) across human assay tracks, aggregating results across multiple random three seeds for statistical stability.
+> **Enformer Variants with Komlós, RoPE, and Rank-1 Modifications**
 
-Key scripts:
-- `run_experiments.py`: end-to-end training, evaluation, aggregation, plotting, and saving artifacts.
-- `ecozoi_final.py`: Enformer implementation with toggles for Komlós, RoPE, and Rank-1.
+## 📋 Table of Contents
+
+- [Overview](#-overview)
+- [Model and Variants](#-model-and-variants)
+- [Theory](#-theory-short-primers)
+- [Data](#-data)
+- [Training Protocol](#-training-and-evaluation-protocol)
+- [Installation](#-installation)
+- [Usage](#-usage)
+- [Results](#-visualization)
+- [Outputs](#-outputs-and-artifacts)
+- [Reproducibility](#-notes-and-reproducibility)
+- [Citation](#-citation)
+
+## 🎯 Overview
+This repository implements and evaluates three orthogonal modifications to DeepMind's Enformer architecture:
+
+| Modification | Description | Benefit |
+|-------------|-------------|----------|
+| **🧬 Komlós** | 3-channel balanced DNA encoding | Reduces redundancy, improves conditioning |
+| **🔄 RoPE** | Rotary Positional Embeddings | Better long-range generalization |
+| **📊 Rank-1** | Rank-1 value projection in attention | Parameter reduction, regularization |
+
+**Performance Evaluation**: Pearson correlation (PearsonR) across 5,313 human assay tracks, with statistical stability through multiple random seeds.
+
+### 🔑 Key Scripts
+- **`run_experiments.py`**: End-to-end training, evaluation, aggregation, plotting, and artifact saving
+- **`ecozoi_final.py`**: Enformer implementation with modular toggles for all three modifications
 
 
-## Model and Variants
+## 🏗️ Model and Variants
 Base model: Enformer with truncation to 896 target bins at 128 bp resolution for a 196,608 bp input sequence.
 
 Experiments (8 total):
@@ -29,7 +52,7 @@ Experiments (8 total):
 Heads: `{'human': 5313, 'mouse': 1643}` (experiments below focus on human; 5,313 tracks).
 
 
-## Theory (short primers)
+## 📚 Theory (Short Primers)
 ### Komlós encoding (balanced 3D representation)
 Standard one-hot encodes DNA as 4 channels (A,C,G,T). Komlós encodes into 3 balanced dimensions (linear transforms of A,C,G,T) to reduce redundancy and improve conditioning. This preserves information while centering and balancing symbol contributions, often stabilizing optimization.
 
@@ -43,7 +66,7 @@ Standard multi-head attention uses full-dimensional value projections per head. 
 Pearson correlation between predictions and targets is computed using streaming sufficient statistics. In our pipeline, per-batch predictions/targets with shape `(batch, bins=896, tracks=5313)` are accumulated; final reductions yield per-track or category-aggregated correlation. We report mean PearsonR across the specified target sets.
 
 
-## Data
+## 📊 Data
 - Format: TFRecords with ZLIB compression; examples contain:
   - `sequence`: DNA sequence (one-hot or Komlós-encoded), length 196,608 bp
   - `target`: assay targets of shape `(896 bins, 5313 tracks)` for human
@@ -53,7 +76,7 @@ Pearson correlation between predictions and targets is computed using streaming 
 Note: `run_experiments.py` reads from `data_limited/<organism>/tfrecords` via helpers and applies mapping (identity or Komlós) on-the-fly.
 
 
-## Training and Evaluation Protocol
+## 🚀 Training and Evaluation Protocol
 ### Hyperparameters (from `run_experiments.py`)
 - `num_epochs = 20`
 - `steps_per_epoch = 5`
@@ -74,7 +97,7 @@ Aggregation across seeds:
 - Produce plots including mean PearsonR bars and category summaries.
 
 
-## Outputs and Artifacts
+## 📁 Outputs and Artifacts
 All results are written to `output_results/`:
 - CSVs:
   - `experiment_results_human_seed_<seed>.csv`
@@ -89,47 +112,125 @@ All results are written to `output_results/`:
 
 
 
-## Interpreting Results
+## 📈 Interpreting Results
 - The primary scalar for each experiment is `pearson_human_mean` (mean PearsonR across the human tracks or selected categories).
 - Category summaries (`DNASE`, `CAGE`, `CHIP`, `ATAC`) are computed by averaging PearsonR over index ranges derived from `targets.txt`.
 - Plots compare baseline vs. modified variants and highlight per-category deltas; scatter plots visualize pointwise improvements (e.g., `vanilla` vs. `all`).
 
-## Visualization
+## 📊 Results and Visualization
 
-#### 1. Overall Performance Plot
+### 🎯 Overall Performance
 Bar chart showing mean Pearson correlation across all 5,313 targets for each experiment.
 
-![Overall Performance](plots/pearson_overall_human.png)
+<div align="center">
+  <img src="plots/pearson_overall_human.png" alt="Overall Performance" width="600"/>
+</div>
 
-#### 2. Category Performance Plot
+### 📊 Category Performance
 Bar chart showing mean Pearson correlation for each category (DNASE, CAGE, CHIP, ATAC) across experiments.
 
-![Category Performance](plots/pearson_by_category_human.png)
+<div align="center">
+  <img src="plots/pearson_by_category_human.png" alt="Category Performance" width="600"/>
+</div>
 
-#### 3. Scatter Plots (Vanilla vs All)
-Per-category scatter plots comparing individual target correlations:
+### 🔍 Detailed Comparison: Vanilla vs All Modifications
+Per-category scatter plots comparing individual target correlations between baseline and fully modified model:
 
-**DNASE Category:**
-![DNASE Scatter](plots/scatter_vanilla_vs_all_DNASE.png)
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <strong>DNASE</strong><br/>
+        <img src="plots/scatter_vanilla_vs_all_DNASE.png" alt="DNASE Scatter" width="300"/>
+      </td>
+      <td align="center">
+        <strong>CAGE</strong><br/>
+        <img src="plots/scatter_vanilla_vs_all_CAGE.png" alt="CAGE Scatter" width="300"/>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <strong>CHIP</strong><br/>
+        <img src="plots/scatter_vanilla_vs_all_CHIP.png" alt="CHIP Scatter" width="300"/>
+      </td>
+      <td align="center">
+        <strong>ATAC</strong><br/>
+        <img src="plots/scatter_vanilla_vs_all_ATAC.png" alt="ATAC Scatter" width="300"/>
+      </td>
+    </tr>
+  </table>
+</div>
 
-**CAGE Category:**
-![CAGE Scatter](plots/scatter_vanilla_vs_all_CAGE.png)
 
-**CHIP Category:**
-![CHIP Scatter](plots/scatter_vanilla_vs_all_CHIP.png)
+## 🛠️ Installation
 
-**ATAC Category:**
-![ATAC Scatter](plots/scatter_vanilla_vs_all_ATAC.png)
+### Prerequisites
+- Python 3.7+
+- CUDA-compatible GPU (recommended)
 
+### Setup
+```bash
+# Clone the repository
+git clone <repository-url>
+cd cluster_upload
 
-## Notes and Reproducibility
+# Create virtual environment
+python -m venv enformer_env
+source enformer_env/bin/activate  # On Windows: enformer_env\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+### Dependencies
+Key packages from `requirements.txt`:
+- `tensorflow==2.5.0` - Deep learning framework
+- `dm-sonnet==2.0.0` - Neural network library
+- `torch` - PyTorch for RoPE implementation
+- `rotary-embedding-torch` - Rotary positional embeddings
+- `matplotlib`, `seaborn` - Visualization
+- `pandas`, `numpy` - Data processing
+
+## 🚀 Usage
+
+### Quick Start
+```bash
+# Run all experiments with default settings
+python run_experiments.py
+
+# Run specific experiment variant
+python run_experiments.py --experiment vanilla
+python run_experiments.py --experiment all
+```
+
+### Custom Configuration
+```python
+# In run_experiments.py, modify:
+EXPERIMENTS = ['vanilla', 'komlos', 'rope', 'rank1', 'komlos_rope', 'komlos_rank1', 'rope_rank1', 'all']
+SEEDS = [42, 123, 2025]
+NUM_EPOCHS = 20
+```
+
+### Model Architecture
+```python
+# In ecozoi_final.py, toggle modifications:
+model = Enformer(
+    use_komlos=True,    # Enable Komlós encoding
+    use_rope=True,      # Enable RoPE
+    use_rank1=True      # Enable Rank-1 projections
+)
+```
+
+## 🔬 Reproducibility
 - Seeding ensures that, for a given seed, all 8 experiments share identical initial weights; cross-seed averaging reduces variance.
 - Saved checkpoints and SavedModels enable later inference and fine-grained analysis without retraining.
 - Input resolution: 128 bp per bin; target length: 896 bins; input sequence length: 196,608 bp.
 - Human head size: 5,313 tracks.
 
 
-## Citation
+## 📄 Citation
+
+If you use this work, please cite the original Enformer paper:
 
 
 
