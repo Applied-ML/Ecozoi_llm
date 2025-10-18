@@ -16,7 +16,7 @@
 - [Installation](#-installation)
 - [Usage](#-usage)
 - [Results](#-visualization)
-- [Outputs](#-outputs-and-artifacts)
+<!- [Outputs](#-outputs-and-artifacts)>
 - [Reproducibility](#-notes-and-reproducibility)
 - [Citation](#-citation)
 
@@ -209,6 +209,7 @@ python run_experiments.py --experiment all
 EXPERIMENTS = ['vanilla', 'komlos', 'rope', 'rank1', 'komlos_rope', 'komlos_rank1', 'rope_rank1', 'all']
 SEEDS = [42, 123, 2025]
 NUM_EPOCHS = 20
+STEPS_PER_EPOCH = 5
 ```
 
 ### Model Architecture
@@ -246,6 +247,7 @@ If you use this work, please cite the original Enformer paper:
   publisher={Nature Publishing Group}
 }
 ```
+
 
 
 
