@@ -94,6 +94,33 @@ All results are written to `output_results/`:
 - Category summaries (`DNASE`, `CAGE`, `CHIP`, `ATAC`) are computed by averaging PearsonR over index ranges derived from `targets.txt`.
 - Plots compare baseline vs. modified variants and highlight per-category deltas; scatter plots visualize pointwise improvements (e.g., `vanilla` vs. `all`).
 
+## Visualization
+
+#### 1. Overall Performance Plot
+Bar chart showing mean Pearson correlation across all 5,313 targets for each experiment.
+
+![Overall Performance](plots/pearson_overall_human.png)
+
+#### 2. Category Performance Plot
+Bar chart showing mean Pearson correlation for each category (DNASE, CAGE, CHIP, ATAC) across experiments.
+
+![Category Performance](plots/pearson_by_category_human.png)
+
+#### 3. Scatter Plots (Vanilla vs All)
+Per-category scatter plots comparing individual target correlations:
+
+**DNASE Category:**
+![DNASE Scatter](plots/scatter_vanilla_vs_all_DNASE.png)
+
+**CAGE Category:**
+![CAGE Scatter](plots/scatter_vanilla_vs_all_CAGE.png)
+
+**CHIP Category:**
+![CHIP Scatter](plots/scatter_vanilla_vs_all_CHIP.png)
+
+**ATAC Category:**
+![ATAC Scatter](plots/scatter_vanilla_vs_all_ATAC.png)
+
 
 ## Notes and Reproducibility
 - Seeding ensures that, for a given seed, all 8 experiments share identical initial weights; cross-seed averaging reduces variance.
@@ -118,6 +145,7 @@ All results are written to `output_results/`:
   publisher={Nature Publishing Group}
 }
 ```
+
 
 
 
