@@ -13,8 +13,6 @@
 - [Theory](#-theory-short-primers)
 - [Data](#-data)
 - [Training Protocol](#-training-and-evaluation-protocol)
-- [Installation](#-installation)
-- [Usage](#-usage)
 - [Results](#-visualization)
 - [Reproducibility](#-notes-and-reproducibility)
 - [Citation](#-citation)
@@ -139,8 +137,8 @@ Bar chart and table showing mean Pearson correlation for each category (DNASE, C
 - **ATAC**: `rope` (0.174) and `vanilla` (0.177) are top performers
 
 ### 🔍 Detailed Comparison: Vanilla vs All Modifications
-Per-category scatter plots comparing individual target correlations between baseline and fully modified model :
-Note: Current Scatter-plots are for single seed (42). CSV contains average across all three seeds.
+Per-category scatter plots comparing individual target correlations between baseline and fully modified model **(For single seed 42, CSV contains average across all three seeds.)** :
+
 
 <div align="center">
   <table>
@@ -225,6 +223,7 @@ If you use this work, please cite the original Enformer paper:
   publisher={Nature Publishing Group}
 }
 ```
+
 
 
 
