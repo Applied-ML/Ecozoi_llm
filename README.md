@@ -16,7 +16,6 @@
 - [Installation](#-installation)
 - [Usage](#-usage)
 - [Results](#-visualization)
-- [Outputs](#-outputs-and-artifacts)
 - [Reproducibility](#-notes-and-reproducibility)
 - [Citation](#-citation)
 
@@ -73,7 +72,7 @@ Pearson correlation between predictions and targets is computed using streaming 
 - Training set: 5 TFRecord files × 256 sequences/file = 1,280 sequences total (each sequence is 196,608 bp).
 - Validation set: uses `max_steps=256` for evaluation sampling.
 
-Note: `run_experiments.py` reads from `data_limited/<organism>/tfrecords` via helpers and applies mapping (identity or Komlós) on-the-fly.
+Note: `run_experiments.py` reads from `data_limited/<organism>/tfrecords` via helpers and applies mapping (identity or Komlós).
 
 
 ## 🚀 Training and Evaluation Protocol
@@ -97,19 +96,6 @@ Aggregation across seeds:
 - Produce plots including mean PearsonR bars and category summaries.
 
 
-## 📁 Outputs and Artifacts
-All results are written to `output_results/`:
-- CSVs:
-  - `experiment_results_human_seed_<seed>.csv`
-  - `experiment_results_human_all_seeds.csv`
-  - `experiment_results_human_avg.csv`
-  - `experiment_results_human_categories.csv`
-- Plots in `output_results/plots/`:
-  - `pearson_overall_human.png` (mean over seeds)
-  - `pearson_by_category_human.png`
-  - `scatter_vanilla_vs_all_*.png`
-
-
 
 
 ## 📈 Interpreting Results
@@ -127,14 +113,15 @@ Bar chart showing mean Pearson correlation across all 5,313 targets for each exp
 </div>
 
 ### 📊 Category Performance
-Bar chart showing mean Pearson correlation for each category (DNASE, CAGE, CHIP, ATAC) across experiments.
+Bar chart and table showing mean Pearson correlation for each category (DNASE, CAGE, CHIP, ATAC) across experiments.
 
 <div align="center">
   <img src="plots/pearson_by_category_human.png" alt="Category Performance" width="600"/>
 </div>
 
 ### 🔍 Detailed Comparison: Vanilla vs All Modifications
-Per-category scatter plots comparing individual target correlations between baseline and fully modified model:
+Per-category scatter plots comparing individual target correlations between baseline and fully modified model :
+Note: Current Scatter-plots are for single seed (42). CSV contains average across all three seeds.
 
 <div align="center">
   <table>
@@ -162,46 +149,18 @@ Per-category scatter plots comparing individual target correlations between base
 </div>
 
 
-## 🛠️ Installation
 
-### Prerequisites
-- Python 3.7+
-- CUDA-compatible GPU (recommended)
 
-### Setup
-```bash
-# Clone the repository
-git clone <repository-url>
-cd cluster_upload
 
-# Create virtual environment
-python -m venv enformer_env
-source enformer_env/bin/activate  # On Windows: enformer_env\Scripts\activate
-
-# Install dependencies
-pip install -r requirements.txt
-```
 
 ### Dependencies
 Key packages from `requirements.txt`:
 - `tensorflow==2.5.0` - Deep learning framework
 - `dm-sonnet==2.0.0` - Neural network library
-- `torch` - PyTorch for RoPE implementation
-- `rotary-embedding-torch` - Rotary positional embeddings
 - `matplotlib`, `seaborn` - Visualization
 - `pandas`, `numpy` - Data processing
 
-## 🚀 Usage
 
-### Quick Start
-```bash
-# Run all experiments with default settings
-python run_experiments.py
-
-# Run specific experiment variant
-python run_experiments.py --experiment vanilla
-python run_experiments.py --experiment all
-```
 
 ### Custom Configuration
 ```python
@@ -247,6 +206,7 @@ If you use this work, please cite the original Enformer paper:
   publisher={Nature Publishing Group}
 }
 ```
+
 
 
 
