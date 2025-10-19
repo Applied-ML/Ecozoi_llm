@@ -200,7 +200,6 @@ model = Enformer(
 
 ## 🔬 Reproducibility
 - Seeding ensures that, for a given seed, all 8 experiments share identical initial weights; cross-seed averaging reduces variance.
-- Saved checkpoints and SavedModels enable later inference and fine-grained analysis without retraining.
 - Input resolution: 128 bp per bin; target length: 896 bins; input sequence length: 196,608 bp.
 - Human head size: 5,313 tracks.
 
@@ -223,6 +222,7 @@ If you use this work, please cite the original Enformer paper:
   publisher={Nature Publishing Group}
 }
 ```
+
 
 
 
