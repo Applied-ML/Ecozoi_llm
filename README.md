@@ -119,6 +119,25 @@ Bar chart and table showing mean Pearson correlation for each category (DNASE, C
   <img src="plots/pearson_by_category_human.png" alt="Category Performance" width="600"/>
 </div>
 
+
+| Experiment | DNASE Mean | CAGE Mean | CHIP Mean | ATAC Mean | Description |
+|------------|------------|-----------|-----------|-----------|-------------|
+| `vanilla` | 0.235 | 0.131 | 0.177 | 0.177 | Baseline (no modifications) |
+| `komlos` | 0.257 | 0.123 | 0.170 | 0.172 | Komlós encoding only |
+| `rope` | 0.276 | 0.159 | 0.193 | 0.174 | RoPE only |
+| `rank1` | 0.220 | 0.124 | 0.158 | 0.158 | Rank-1 value projection only |
+| `komlos_rope` | 0.240 | 0.116 | 0.154 | 0.169 | Komlós + RoPE |
+| `komlos_rank1` | 0.266 | 0.154 | 0.168 | 0.157 | Komlós + Rank-1 |
+| `rope_rank1` | 0.208 | 0.116 | 0.155 | 0.162 | RoPE + Rank-1 |
+| `all` | 0.257 | 0.159 | 0.174 | 0.159 | All modifications combined |
+
+**Key Observations:**
+- **Best overall performer**: `rope` shows the highest performance across most categories
+- **DNASE**: `rope` (0.276) and `komlos_rank1` (0.266) perform best
+- **CAGE**: `rope` (0.159) and `all` (0.159) show the highest correlation
+- **CHIP**: `rope` (0.193) significantly outperforms other variants
+- **ATAC**: `rope` (0.174) and `vanilla` (0.177) are top performers
+
 ### 🔍 Detailed Comparison: Vanilla vs All Modifications
 Per-category scatter plots comparing individual target correlations between baseline and fully modified model :
 Note: Current Scatter-plots are for single seed (42). CSV contains average across all three seeds.
@@ -206,6 +225,7 @@ If you use this work, please cite the original Enformer paper:
   publisher={Nature Publishing Group}
 }
 ```
+
 
 
 
