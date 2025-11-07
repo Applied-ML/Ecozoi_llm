@@ -169,6 +169,55 @@ Per-category scatter plots comparing individual target correlations between base
 
 
 
+### 🔍 Detailed Comparison: Vanilla vs All Modifications (300 total steps)
+Per-category scatter plots comparing individual target correlations between baseline and fully modified model **(For single seed 42, CSV contains average across all three seeds.)** :
+
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <strong>DNASE</strong><br/>
+        <img src="plots_300_steps/scatter_vanilla_vs_all_DNASE.png" alt="DNASE Scatter" width="300"/>
+      </td>
+      <td align="center">
+        <strong>CAGE</strong><br/>
+        <img src="plots_300_steps/scatter_vanilla_vs_all_CAGE.png" alt="CAGE Scatter" width="300"/>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <strong>CHIP</strong><br/>
+        <img src="plots_300_steps/scatter_vanilla_vs_all_CHIP.png" alt="CHIP Scatter" width="300"/>
+      </td>
+      <td align="center">
+        <strong>ATAC</strong><br/>
+        <img src="plots_300_steps/scatter_vanilla_vs_all_ATAC.png" alt="ATAC Scatter" width="300"/>
+      </td>
+    </tr>
+  </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### Dependencies
 Key packages from `requirements.txt`:
@@ -222,6 +271,7 @@ If you use this work, please cite the original Enformer paper:
   publisher={Nature Publishing Group}
 }
 ```
+
 
 
 
