@@ -136,7 +136,7 @@ Bar chart and table showing mean Pearson correlation for each category (DNASE, C
 - **CHIP**: `rope` (0.193) significantly outperforms other variants
 - **ATAC**: `rope` (0.174) and `vanilla` (0.177) are top performers
 
-### 🔍 Detailed Comparison: Vanilla vs All Modifications
+### 🔍 Detailed Comparison: Vanilla vs All Modifications (100 total steps)
 Per-category scatter plots comparing individual target correlations between baseline and fully modified model **(For single seed 42, CSV contains average across all three seeds.)** :
 
 
@@ -271,6 +271,7 @@ If you use this work, please cite the original Enformer paper:
   publisher={Nature Publishing Group}
 }
 ```
+
 
 
 
