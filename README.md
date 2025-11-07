@@ -170,7 +170,7 @@ Per-category scatter plots comparing individual target correlations between base
 
 
 ### 🔍 Detailed Comparison: Vanilla vs All Modifications (300 total steps)
-Per-category scatter plots comparing individual target correlations between baseline and fully modified model **(For single seed 42, CSV contains average across all three seeds.)** :
+Per-category scatter plots comparing individual target correlations between baseline and fully modified model **(Seed 42)** :
 
 
 <div align="center">
@@ -271,6 +271,7 @@ If you use this work, please cite the original Enformer paper:
   publisher={Nature Publishing Group}
 }
 ```
+
 
 
 
